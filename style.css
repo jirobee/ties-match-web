@@ -54,82 +54,18 @@
   --maxw:   1140px;
   --band:   76px;
 
-  /* ヒーロー専用の色
-     ロゴの「ズット」が濃い茶色のため、地色が暗いと読めなくなる。
-     そのためここだけはダークモードでも反転させず、固定の薄暗いサンド地にしている。 */
+  /* ヒーロー専用の色。薄暗いサンド地とその上の文字色 */
   --hero-bg:     #e8dbc6;
   --hero-edge:   #d9c9af;
   --hero-ink:    #201e1d;
   --hero-accent: #93501f;
+
+  /* 端末のダークモード設定に追従しない。
+     ロゴの「ズット」が濃い茶色で、地色を暗くすると読めなくなるため、
+     このサイトは明るい配色に固定している。 */
+  color-scheme: light;
 }
 
-/* ダークモード（OS 設定に追従。明示指定が勝つ） */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --canvas:        #17150f;
-    --surface-soft:  #1e1b15;
-    --surface-card:  #241f18;
-    --surface-warm:  #2b241b;
-    --surface-dark:  #100e0b;
-    --surface-dark-2:#1c1915;
-
-    --ink:   #f4ecdf;
-    --body:  #d5cbbc;
-    --muted: #9d9384;
-    --fine:  #8b8173;
-
-    --hairline:        #352f25;
-    --hairline-strong: #453d30;
-
-    --terra:       #d2814a;
-    --terra-press: #b96a37;
-    --terra-text:  #e3a173;
-    --terra-soft:  #3a2b1e;
-
-    --olive:      #8aa45e;
-    --olive-text: #a8c37a;
-    --olive-soft: #26301a;
-
-    --on-terra:     #180f09;
-    --on-dark:      #f4ecdf;
-    --on-dark-soft: #948b7f;
-
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
-    --shadow-md: 0 4px 14px rgba(0, 0, 0, .45);
-  }
-}
-:root[data-theme="dark"] {
-  --canvas:        #17150f;
-  --surface-soft:  #1e1b15;
-  --surface-card:  #241f18;
-  --surface-warm:  #2b241b;
-  --surface-dark:  #100e0b;
-  --surface-dark-2:#1c1915;
-
-  --ink:   #f4ecdf;
-  --body:  #d5cbbc;
-  --muted: #9d9384;
-  --fine:  #8b8173;
-
-  --hairline:        #352f25;
-  --hairline-strong: #453d30;
-
-  --terra:       #d2814a;
-  --terra-press: #b96a37;
-  --terra-text:  #e3a173;
-  --terra-soft:  #3a2b1e;
-
-  --olive:      #8aa45e;
-  --olive-text: #a8c37a;
-  --olive-soft: #26301a;
-
-  --on-terra:     #180f09;
-  --on-dark:      #f4ecdf;
-  --on-dark-soft: #948b7f;
-
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
-  --shadow-md: 0 4px 14px rgba(0, 0, 0, .45);
-}
 
 /* ---------- 2. ベース ---------- */
 *, *::before, *::after { box-sizing: border-box; }
