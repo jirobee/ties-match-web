@@ -1,0 +1,391 @@
+/* ============================================================
+   Ties Match / ズットーク  —  stylesheet
+   ベース: Cal.com 型のレイアウト（白地・クリームのカード・
+   暗色はフッターのみ）＋ ズットークのブランド色
+   ============================================================ */
+
+/* ---------- 1. トークン ---------- */
+:root {
+  /* サーフェス */
+  --canvas:        #ffffff;
+  --surface-soft:  #faf6f0;
+  --surface-card:  #f7f1e8;
+  --surface-warm:  #f2e7d8;
+  --surface-dark:  #211e1b;
+  --surface-dark-2:#2c2825;
+
+  /* 文字 */
+  --ink:   #201e1d;
+  --body:  #4a443e;
+  --muted: #6b6259;
+  --fine:  #857b70;
+
+  /* 罫線 */
+  --hairline:        #ece4d8;
+  --hairline-strong: #ddd2c2;
+
+  /* アクセント：テラコッタ＝サービス／行動 */
+  --terra:       #c67139;
+  --terra-press: #a75b2b;
+  --terra-text:  #a75b2b;
+  --terra-soft:  #f7e8d8;
+
+  /* アクセント：オリーブ＝地域／人／つながり */
+  --olive:      #6f8a45;
+  --olive-text: #4e6630;
+  --olive-soft: #edf3e1;
+
+  /* 反転文字 */
+  --on-terra:     #ffffff;
+  --on-dark:      #fbf7f1;
+  --on-dark-soft: #a8a096;
+  --line-green:   #06c755;
+
+  /* 影 */
+  --shadow-sm: 0 1px 2px rgba(32, 30, 29, .06);
+  --shadow-md: 0 4px 14px rgba(32, 30, 29, .07);
+
+  /* 書体 */
+  --ff-display: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Yu Gothic", system-ui, sans-serif;
+  --ff-body:    "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+
+  /* 寸法 */
+  --gutter: 24px;
+  --maxw:   1140px;
+  --band:   76px;
+
+  /* ヒーロー専用の色
+     ロゴの「ズット」が濃い茶色のため、地色が暗いと読めなくなる。
+     そのためここだけはダークモードでも反転させず、固定の薄暗いサンド地にしている。 */
+  --hero-bg:     #e8dbc6;
+  --hero-edge:   #d9c9af;
+  --hero-ink:    #201e1d;
+  --hero-accent: #93501f;
+}
+
+/* ダークモード（OS 設定に追従。明示指定が勝つ） */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --canvas:        #17150f;
+    --surface-soft:  #1e1b15;
+    --surface-card:  #241f18;
+    --surface-warm:  #2b241b;
+    --surface-dark:  #100e0b;
+    --surface-dark-2:#1c1915;
+
+    --ink:   #f4ecdf;
+    --body:  #d5cbbc;
+    --muted: #9d9384;
+    --fine:  #8b8173;
+
+    --hairline:        #352f25;
+    --hairline-strong: #453d30;
+
+    --terra:       #d2814a;
+    --terra-press: #b96a37;
+    --terra-text:  #e3a173;
+    --terra-soft:  #3a2b1e;
+
+    --olive:      #8aa45e;
+    --olive-text: #a8c37a;
+    --olive-soft: #26301a;
+
+    --on-terra:     #180f09;
+    --on-dark:      #f4ecdf;
+    --on-dark-soft: #948b7f;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
+    --shadow-md: 0 4px 14px rgba(0, 0, 0, .45);
+  }
+}
+:root[data-theme="dark"] {
+  --canvas:        #17150f;
+  --surface-soft:  #1e1b15;
+  --surface-card:  #241f18;
+  --surface-warm:  #2b241b;
+  --surface-dark:  #100e0b;
+  --surface-dark-2:#1c1915;
+
+  --ink:   #f4ecdf;
+  --body:  #d5cbbc;
+  --muted: #9d9384;
+  --fine:  #8b8173;
+
+  --hairline:        #352f25;
+  --hairline-strong: #453d30;
+
+  --terra:       #d2814a;
+  --terra-press: #b96a37;
+  --terra-text:  #e3a173;
+  --terra-soft:  #3a2b1e;
+
+  --olive:      #8aa45e;
+  --olive-text: #a8c37a;
+  --olive-soft: #26301a;
+
+  --on-terra:     #180f09;
+  --on-dark:      #f4ecdf;
+  --on-dark-soft: #948b7f;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, .45);
+}
+
+/* ---------- 2. ベース ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--body);
+  font-family: var(--ff-body);
+  font-size: 15.5px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-family: var(--ff-display);
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+p  { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--terra); outline-offset: 3px; border-radius: 4px; }
+
+.wrap      { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+.band      { padding-block: var(--band); }
+.band-soft { background: var(--surface-soft); }
+
+/* ---------- 3. ナビ ---------- */
+.nav {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 20;
+  background: var(--canvas);
+  border-bottom: 1px solid var(--hairline);
+}
+.nav-in    { display: flex; align-items: center; gap: 26px; height: 62px; }
+.brand     { display: flex; align-items: center; gap: 9px; text-decoration: none; flex: none; }
+.brand-name {
+  font-family: var(--ff-display); font-weight: 700; font-size: 18px;
+  color: var(--ink); letter-spacing: -0.02em;
+}
+.nav-links   { display: flex; gap: 22px; margin-left: auto; font-size: 14px; font-weight: 500; }
+.nav-links a { text-decoration: none; color: var(--muted); }
+.nav-links a:hover { color: var(--ink); }
+.nav .btn { flex: none; }
+
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .nav-in    { gap: 12px; }
+  .nav .btn  { margin-left: auto; }
+}
+
+/* ---------- 4. ボタン・ピル ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: var(--ff-body); font-size: 14px; font-weight: 700;
+  padding: 11px 19px; min-height: 42px; border-radius: 8px;
+  text-decoration: none; border: 1px solid transparent; cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+.btn:hover  { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.btn:active { transform: translateY(0); box-shadow: var(--shadow-sm); }
+.btn-sm     { padding: 8px 15px; min-height: 36px; font-size: 13.5px; }
+.btn-line   { background: var(--line-green); color: #fff; }
+.btn-line:active { background: #05a948; }
+.btn-terra  { background: var(--terra); color: var(--on-terra); }
+.btn-terra:active { background: var(--terra-press); }
+.btn-ghost  { background: var(--canvas); color: var(--ink); border-color: var(--hairline-strong); }
+.line-glyph { width: 17px; height: 17px; flex: none; }
+
+.pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12.5px; font-weight: 700; padding: 5px 13px; border-radius: 999px;
+  background: var(--terra-soft); color: var(--terra-text);
+}
+.pill.olive { background: var(--olive-soft); color: var(--olive-text); }
+
+/* ---------- 5. セクション見出し ---------- */
+.sec-head { margin-bottom: 34px; }
+.sec-head .kicker {
+  font-size: 12px; font-weight: 700; letter-spacing: .1em;
+  color: var(--terra-text); margin-bottom: 9px;
+}
+.sec-head h2  { font-size: clamp(24px, 3.2vw, 33px); line-height: 1.35; }
+.sec-head .sub { font-size: 15px; color: var(--muted); margin-top: 10px; max-width: 40em; }
+
+/* ---------- 6. ヒーロー（Ties Match ＋ ズットーク） ---------- */
+/* 全幅の薄暗いサンド地。中心を明るく、周縁をわずかに落として奥行きを出す。
+   この陰影が不要なら background の radial-gradient の行を消せばフラットになる。 */
+.hero {
+  background:
+    radial-gradient(92% 78% at 50% 42%,
+      rgba(255, 252, 246, .40) 0%,
+      rgba(255, 252, 246, 0)  52%,
+      rgba(58, 42, 26, .13)  100%),
+    var(--hero-bg);
+  border-bottom: 1px solid var(--hero-edge);
+  padding-block: clamp(52px, 8.5vw, 104px);
+}
+.hero-in { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+
+.hero-mark { display: flex; align-items: center; gap: 11px; }
+.hero-mark .org {
+  font-family: var(--ff-display); font-weight: 900;
+  font-size: clamp(19px, 2.4vw, 26px); line-height: 1;
+  letter-spacing: -0.03em; color: var(--hero-ink);
+}
+.hero-rule {
+  height: 1px; background: var(--hero-edge);
+  margin-block: clamp(20px, 3vw, 30px);
+}
+.hero-logo { width: min(880px, 100%); margin-inline: auto; }
+.hero-line {
+  margin-top: clamp(18px, 2.6vw, 28px); text-align: center;
+  font-family: var(--ff-display); font-weight: 700;
+  font-size: clamp(16px, 2vw, 21px); letter-spacing: -0.02em;
+  color: var(--hero-accent);
+}
+
+/* ---------- 7. 課題：数値カード ---------- */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.stat {
+  background: var(--canvas); border: 1px solid var(--hairline);
+  border-radius: 12px; padding: 24px 26px; box-shadow: var(--shadow-sm);
+}
+.stat .fig {
+  font-family: var(--ff-display); font-weight: 900; color: var(--terra-text);
+  font-size: clamp(30px, 3.8vw, 40px); line-height: 1.1;
+  letter-spacing: -0.04em; font-variant-numeric: tabular-nums;
+}
+.stat .fig small {
+  font-family: var(--ff-body); font-weight: 700; font-size: 15px;
+  color: var(--body); margin-left: 3px; letter-spacing: 0;
+}
+.stat .txt { font-size: 14.5px; margin-top: 10px; color: var(--body); }
+
+.src {
+  display: block; font-size: 11px; line-height: 1.55;
+  color: var(--fine); margin-top: 9px;
+}
+.note-line {
+  font-size: 11.5px; color: var(--fine); margin-top: 16px;
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+}
+
+@media (max-width: 700px) { .stats { grid-template-columns: 1fr; } }
+
+/* ---------- 8. 開発の動機 ---------- */
+.motive {
+  margin: 28px 0 0; background: var(--surface-warm);
+  border-radius: 12px; padding: 26px 30px;
+}
+.motive p      { font-size: 15px; color: var(--ink); max-width: 46em; }
+.motive footer { margin-top: 12px; font-size: 12.5px; color: var(--muted); }
+
+/* ---------- 9. サービスの二本柱 ---------- */
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.pillar {
+  background: var(--canvas); border: 1px solid var(--hairline);
+  border-radius: 12px; padding: 30px 30px 32px; box-shadow: var(--shadow-sm);
+}
+.pillar .tag { font-size: 11.5px; font-weight: 700; letter-spacing: .1em; color: var(--terra-text); }
+.pillar.b .tag { color: var(--olive-text); }
+.pillar h3   { font-size: 20px; line-height: 1.5; margin-top: 8px; }
+.pillar > p  { font-size: 14.5px; margin-top: 12px; }
+.pillar ul   { margin-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+.pillar li   { font-size: 14px; color: var(--ink); padding-left: 20px; position: relative; }
+.pillar li::before {
+  content: ""; position: absolute; left: 0; top: .62em;
+  width: 8px; height: 8px; border-radius: 3px; background: var(--terra);
+}
+.pillar.b li::before { background: var(--olive); }
+
+@media (max-width: 800px) { .two { grid-template-columns: 1fr; } }
+
+/* ---------- 10. 使い方 ---------- */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.step  { background: var(--surface-card); border-radius: 12px; padding: 26px 26px 28px; }
+.step .no {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 999px;
+  background: var(--terra); color: var(--on-terra);
+  font-family: var(--ff-display); font-weight: 700; font-size: 14px; line-height: 1;
+}
+.step h3 { font-size: 17.5px; margin-top: 14px; line-height: 1.5; }
+.step p  { font-size: 14px; margin-top: 9px; }
+
+@media (max-width: 800px) { .steps { grid-template-columns: 1fr; } }
+
+/* ---------- 11. CTA ---------- */
+.cta {
+  background: var(--surface-card); border: 1px solid var(--hairline);
+  border-radius: 16px; padding: clamp(30px, 4.5vw, 48px);
+}
+.cta h2 { font-size: clamp(21px, 2.9vw, 29px); line-height: 1.45; }
+.cta p  { margin-top: 12px; font-size: 14.5px; color: var(--muted); max-width: 30em; }
+.cta .cta-row { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* ---------- 12. フッター ---------- */
+.foot {
+  background: var(--surface-dark); color: var(--on-dark-soft);
+  padding-block: 54px 40px; margin-top: var(--band);
+}
+.foot-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 36px; }
+.foot h4 {
+  margin: 0 0 14px; font-family: var(--ff-body);
+  font-size: 11.5px; font-weight: 700; letter-spacing: .12em; color: var(--on-dark);
+}
+.foot .brand-name { color: var(--on-dark); }
+.foot .blurb { font-size: 13.5px; max-width: 26em; margin-top: 13px; }
+.foot dl { margin: 0; display: grid; grid-template-columns: 62px 1fr; gap: 9px 14px; font-size: 13.5px; }
+.foot dt { color: var(--on-dark-soft); }
+.foot dd { margin: 0; color: var(--on-dark); }
+.foot ul { display: flex; flex-direction: column; gap: 11px; font-size: 13.5px; }
+.foot a  { color: var(--on-dark); text-decoration: none; }
+.foot a:hover { text-decoration: underline; }
+.foot .mail   { word-break: break-all; }
+.foot-base {
+  margin-top: 34px; padding-top: 20px;
+  border-top: 1px solid var(--surface-dark-2); font-size: 11.5px;
+}
+
+@media (max-width: 800px) { .foot-grid { grid-template-columns: 1fr; gap: 28px; } }
+
+/* ---------- 13. 動き ---------- */
+
+/* 13-1. 触れると浮き上がる
+   リンク先を持つボタン（LINE友だち追加・メールで問い合わせる）だけに付ける。
+   ただのカードは押せると誤解されるので動かさない。 */
+.btn { transition: transform .2s ease, box-shadow .2s ease; }
+
+/* 13-2. スクロールに合わせて浮き上がる
+   .js-reveal は JS が付ける。JS が動かない環境では何も隠れず、
+   すべて最初から表示されたままになる。 */
+.js-reveal .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .55s ease, transform .55s cubic-bezier(.22, .9, .3, 1);
+}
+.js-reveal .reveal.is-in { opacity: 1; transform: none; }
+
+/* 同じ行に並ぶカードを少しずつ遅らせる */
+.js-reveal .reveal:nth-child(2) { transition-delay: .07s; }
+.js-reveal .reveal:nth-child(3) { transition-delay: .14s; }
+.js-reveal .reveal:nth-child(4) { transition-delay: .21s; }
+
+/* ---------- 14. 小さい画面・動きの抑制 ---------- */
+@media (max-width: 760px) { :root { --band: 52px; --gutter: 20px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  .js-reveal .reveal { opacity: 1 !important; transform: none !important; }
+  .btn:hover { transform: none; }
+}
